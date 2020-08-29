@@ -17,7 +17,7 @@ Released under the MIT License.
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
         <!-- Page title -->
-        <title>Trainer | PBL Manager</title>
+        <title>My Algs | PBL Manager</title>
 
         <!-- CSS libraries -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css" type="text/css">
@@ -40,10 +40,10 @@ Released under the MIT License.
                     <li class="nav-item">
                         <a class="nav-link" href="index.html"><i class="fa fa-home"></i> Home</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="algs.html"><i class="fa fa-list"></i> My Algs</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="trainer.html"><i class="fa fa-dumbbell"></i> Trainer</a>
                     </li>
                 </ul>
@@ -52,19 +52,28 @@ Released under the MIT License.
         
         <!-- Page body -->
         <div class="container">
-            <h1>Trainer</h1>
-            <p>
-                Select cases:
-                <select multiple required class="form-control w-auto d-inline" id="caseSelect"></select>
-            </p>
             <div class="row">
-                <div class="col-12 p-3 border" id="scramble"></div>
-            </div>
-            <div class="row">
-                <div class="col-md-9 p-3 border" style="min-height: 50vh" id="timerArea">
-                    <p id="timer" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 3rem">ready</p>
+                <div class="col-lg-2">
+                    <button class="btn btn-lg btn-outline-dark mb-3" data-target="#setNavCollapse" data-toggle="collapse">
+                        <i class="fa fa-bars"></i> Sets
+                    </button>
+                    <div id="setNavCollapse" class="collapse">
+                        <ul class="nav nav-pills flex-column navbar-nav" id="setNav">
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-md-3 p-3 border" id="times" style="overflow: auto; max-height: 50vh"></div>
+                <div class="col-lg-10">
+                    <h1>My Algs</h1>
+                    <p>All of your PBLs will appear here. Use the tabs to navigate through the algs.</p>
+                    <button class="btn btn-success" id="add"><i class="fa fa-plus"></i> New Alg</button>
+                    <button class="btn btn-primary" id="export">Export JSON</button>
+                    <button class="btn btn-primary" id="import">Import JSON</button>
+                    <div class="alert alert-dismissible alert-warning fade show my-3">
+                        <i class="fa fa-info-circle"></i> It is <strong>highly recommended</strong> to backup your algs as a JSON file, or else they will be lost if you clear your cookies!
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>
+                    <div id="algList"></div>
+                </div>
             </div>
         </div>
     
@@ -75,7 +84,8 @@ Released under the MIT License.
         
         <!-- JavaScript files -->
         <script src="assets/scripts/data.js"></script>
-        <script src="assets/scripts/trainer.js"></script>
+        <script src="assets/scripts/algs.js"></script>
+        
     </body>
   
 </html>
