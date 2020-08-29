@@ -8,10 +8,6 @@ Original author: Charlie Harrison.
 Released under the MIT License.
 */
 
-window.addEventListener("error", function(e) {
-    $("body").append(e.message + " on line " + e.lineno + "<br>");
-});
-
 loadPbls(pbls => {
     // Helper function to get a random item from an array
     function choice(arr) {
