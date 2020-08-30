@@ -1,7 +1,7 @@
 /* 
 PBL Manager
 An online tool to store and train Square-1 PBL algs.
-v2.0.0
+v2.0.1
 
 Original author: Charlie Harrison.
 
@@ -19,21 +19,36 @@ loadPbls(pbls => {
         $("#caseSelect").append(`<option value="${pbl.top}/${pbl.bottom}">${pbl.top}/${pbl.bottom}</option>`);
     });
     
-    // Get PBLs from a list of selected values
+    // Get PBLs from a list of selected values, and vice versa
     function getPblsFromValues(values) {
         return pbls.filter(pbl => values.includes(pbl.top + "/" + pbl.bottom));
     }
+    function getValuesFromPbls(pblCases) {
+        return pblCases.map(pbl => pbl.top + "/" + pbl.bottom);
+    }
+    
+    // Get and set selected PBLs
+    function getSelectedCases() {
+        return pbls.filter(pbl => pbl.train);
+    }
+    function setSelectedCases(values) {
+        pbls.forEach(pbl => {
+            if (values.includes(pbl.top + "/" + pbl.bottom)) {
+                pbl.train = true;
+            }
+        }
+    }
     
     // Update selected cases and random case on select change
-    let selectedValues = JSON.parse(localStorage.getItem("selectedValues")) ?? [];
-    let selectedPbls = getPblsFromValues(selectedValues);
+    let selectedPbls = getSelectedCases();
     selectedValues.forEach(value => {
         $("#caseSelect option[value=\"" + value + "\"]").attr("selected", "");
     });
     $("#caseSelect").change(function() {
         let selectedValues = $(this).val();
         selectedPbls = getPblsFromValues(selectedValues);
-        localStorage.setItem("selectedValues", JSON.stringify(selectedValues));
+        setSelectedCases();
+        updatePbls(pbls);
         randomCase();
     });
     
