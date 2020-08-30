@@ -36,7 +36,7 @@ loadPbls(pbls => {
             if (values.includes(pbl.top + "/" + pbl.bottom)) {
                 pbl.train = true;
             }
-        }
+        });
     }
     
     // Update selected cases and random case on select change
