@@ -48,7 +48,7 @@ loadPbls(pbls => {
     $("#caseSelect").change(function() {
         selectedValues = $(this).val();
         selectedPbls = getPblsFromValues(selectedValues);
-        setSelectedCases();
+        setSelectedCases(selectedValues);
         updatePbls(pbls);
         randomCase();
     });
