@@ -35,6 +35,8 @@ loadPbls(pbls => {
         pbls.forEach(pbl => {
             if (values.includes(pbl.top + "/" + pbl.bottom)) {
                 pbl.train = true;
+            } else {
+                pbl.train = false;
             }
         });
     }
