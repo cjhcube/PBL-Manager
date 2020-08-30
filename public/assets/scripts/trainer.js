@@ -41,11 +41,12 @@ loadPbls(pbls => {
     
     // Update selected cases and random case on select change
     let selectedPbls = getSelectedCases();
+    let selectedValues = getValuesFromPbls(selectedPbls);
     selectedValues.forEach(value => {
         $("#caseSelect option[value=\"" + value + "\"]").attr("selected", "");
     });
     $("#caseSelect").change(function() {
-        let selectedValues = $(this).val();
+        selectedValues = $(this).val();
         selectedPbls = getPblsFromValues(selectedValues);
         setSelectedCases();
         updatePbls(pbls);
