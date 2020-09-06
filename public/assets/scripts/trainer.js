@@ -1,7 +1,7 @@
 /* 
 PBL Manager
 An online tool to store and train Square-1 PBL algs.
-v2.0.1
+v2.1.0
 
 Original author: Charlie Harrison.
 
@@ -18,6 +18,7 @@ loadPbls(pbls => {
     pbls.forEach(pbl => {
         $("#caseSelect").append(`<option value="${pbl.top}/${pbl.bottom}">${pbl.top}/${pbl.bottom}</option>`);
     });
+    $("#caseSelect").selectpicker();
     
     // Get PBLs from a list of selected values, and vice versa
     function getPblsFromValues(values) {
