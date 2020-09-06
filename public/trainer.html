@@ -54,10 +54,13 @@ Released under the MIT License.
         <!-- Page body -->
         <div class="container">
             <h1>Trainer</h1>
-            <p>
-                Select cases:
+            <div>
+                <label for="caseSelect">Select cases:</label>
                 <select multiple id="caseSelect" data-selected-text-format="count > 3"></select>
-            </p>
+            </div>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="eachOneOnce" checked>
+                <label for="eachOneOnce" class="custom-control-label">Go through each case exactly once before continuing?</label>
             <div class="row">
                 <div class="col-12 p-3 border" id="scramble"></div>
             </div>
