@@ -18,7 +18,6 @@ loadPbls(pbls => {
     pbls.forEach(pbl => {
         $("#caseSelect").append(`<option value="${pbl.top}/${pbl.bottom}">${pbl.top}/${pbl.bottom}</option>`);
     });
-    $("#caseSelect").selectpicker();
     
     // Get PBLs from a list of selected values, and vice versa
     function getPblsFromValues(values) {
@@ -48,6 +47,7 @@ loadPbls(pbls => {
     selectedValues.forEach(value => {
         $("#caseSelect option[value=\"" + value + "\"]").attr("selected", "");
     });
+    $("#caseSelect").selectpicker();
     $("#caseSelect").change(function() {
         selectedValues = $(this).val();
         selectedPbls = getPblsFromValues(selectedValues);
