@@ -13,6 +13,9 @@ loadPbls(pbls => {
     function choice(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
     }
+    function choicei(arr) {
+        return Math.floor(Math.random() * arr.length);
+    }
 
     // Display PBL cases in select menu
     pbls.forEach(pbl => {
@@ -41,8 +44,11 @@ loadPbls(pbls => {
         });
     }
     
+    let eachOneOnce = true;
+    
     // Update selected cases and random case on select change
     let selectedPbls = getSelectedCases();
+    let availablePbls = selectedPbls;
     let selectedValues = getValuesFromPbls(selectedPbls);
     selectedValues.forEach(value => {
         $("#caseSelect option[value=\"" + value + "\"]").attr("selected", "");
@@ -52,6 +58,7 @@ loadPbls(pbls => {
         selectedValues = $(this).val();
         selectedPbls = getPblsFromValues(selectedValues);
         setSelectedCases(selectedValues);
+        availablePbls = selectedPbls;
         updatePbls(pbls);
         randomCase();
     });
@@ -60,12 +67,20 @@ loadPbls(pbls => {
     let currentCase, currentScramble, lastCase, lastScramble;
     function randomCase() {
         if (selectedPbls.length > 0) {
-            const flip = ["", "flip "];
-            const auf = ["", "U ", "U' ", "U2 "];
-            const adf = ["", "D ", "D' ", "D2 "];
-            currentCase = choice(selectedPbls);
-            currentScramble = choice(flip) + choice(auf) + choice(adf) + currentCase.setup + " " + choice(auf) + choice(adf);
-            $("#scramble").html(currentScramble);
+            if (availablePbls.length > 0) {
+                const flip = ["", "flip "];
+                const auf = ["", "U ", "U' ", "U2 "];
+                const adf = ["", "D ", "D' ", "D2 "];
+                let currentIndex = choicei(availablePbls);
+                currentCase = availablePbls[currentIndex];
+                currentScramble = choice(flip) + choice(auf) + choice(adf) + currentCase.setup + " " + choice(auf) + choice(adf);
+                $("#scramble").html(currentScramble);
+                if (eachOneOnce) {
+                    availablePbls.splice(currentIndex, 1);
+                }
+            } else {
+                eachOneOnce = false;
+            }
         } else {
             $("#scramble").html("Please select some cases first.");
         }
