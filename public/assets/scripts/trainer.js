@@ -159,6 +159,7 @@ loadPbls(pbls => {
     function deleteAll() {
         if (confirm("Are you sure you want to delete all your times?")) {
             times = [];
+            availablePbls = selectedPbls;
             printTimes();
         }
     }
