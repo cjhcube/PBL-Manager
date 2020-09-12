@@ -80,6 +80,7 @@ loadPbls(pbls => {
                 }
             } else {
                 eachOneOnce = false;
+                availablePbls = selectedPbls;
             }
         } else {
             $("#scramble").html("Please select some cases first.");
