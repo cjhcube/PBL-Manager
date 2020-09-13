@@ -80,10 +80,11 @@ loadPbls(pbls => {
     topsUnique.forEach(v => {
         let option = `<option name="${v}">${v}</option>
         `;
-        $("#addTop").append(option).selectpicker("refresh");
-        $("#addBottom").append(option).selectpicker("refresh");
-        
+        $("#addTop").append(option);
+        $("#addBottom").append(option);
     });
+    $("#addTop").selectpicker();
+    $("#addBottom").selectpicker();
     $("#add").click(function() {
         $("#add").click(function(e) {
             $("#addAlerts").empty();
