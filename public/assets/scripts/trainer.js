@@ -114,6 +114,7 @@ loadPbls(pbls => {
         printTimes();
         if (eachOneOnce) {
             availablePbls.splice(currentIndex, 1);
+            selectedPbls = getSelectedCases();
         }
         randomCase();
     }
