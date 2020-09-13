@@ -54,7 +54,7 @@ loadPbls(pbls => {
         $("#caseSelect option[value=\"" + value + "\"]").attr("selected", "");
     });
     $("#caseSelect").selectpicker();
-    $("#caseSelect").change(function() {
+    $("#caseSelect").on("changed.bs.select", function(e, i, s, p) {
         selectedValues = $(this).val();
         selectedPbls = getPblsFromValues(selectedValues);
         setSelectedCases(selectedValues);
