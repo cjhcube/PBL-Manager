@@ -173,6 +173,7 @@ loadPbls(pbls => {
             times = [];
             availablePbls = getSelectedCases();
             updateEOO();
+            randomCase();
             printTimes();
         }
     }
