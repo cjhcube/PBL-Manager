@@ -86,7 +86,6 @@ loadPbls(pbls => {
     $("#addTop").selectpicker();
     $("#addBottom").selectpicker();
     $("#add").click(function() {
-        $("#add").click(function(e) {
             $("#addAlerts").empty();
             let top = $("#addTop").val();
             let bottom = $("#addBottom").val();
@@ -99,13 +98,15 @@ loadPbls(pbls => {
                 loadSideNav();
                 loadAlgList();
             }
-            if (pbls[newCase] === undefined) {
+            if (newCase == -1) {
                 $("#addAlerts").append(`<div class="alert alert-danger">Please enter a valid case.</div>`);
-            } else if (alg == "") {
+            } else if (alg === "") {
                 $("#addAlerts").append(`<div class="alert alert-danger">Please enter an alg.</div>`);
-            } else {addAlg();}
+            } else {
+                addAlg();
+                $("#addAlerts").append(`<div class="alert alert-success">${pbls[newCase].top}/${pbls[newCase].bottom} successfully added.`);
+            }
         });
-    });
     
     // Export JSON
     $("#export").click(function() {
