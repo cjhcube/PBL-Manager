@@ -80,16 +80,11 @@ loadPbls(pbls => {
     topsUnique.forEach(v => {
         let option = `<option name="${v}">${v}</option>
         `;
-        $("#addTop").append(option);
-        $("#addBottom").append(option);
+        $("#addTop").append(option).selectpicker("refresh");
+        $("#addBottom").append(option).selectpicker("refresh");
+        
     });
     $("#add").click(function() {
-        topsUnique.forEach(v => {
-            let option = `<option name="${v}">${v}</option>
-            `;
-            $("#addModalTop").append(option);
-            $("#addModalBottom").append(option);
-        });
         $("#add").click(function(e) {
             $("#addAlerts").empty();
             let top = $("#addTop").val();
