@@ -64,20 +64,17 @@ loadPbls(pbls => {
     });
     
     // Random case/scramble
-    let currentCase, currentScramble, lastCase, lastScramble;
+    let currentIndex, currentCase, currentScramble, lastCase, lastScramble;
     function randomCase() {
         if (selectedPbls.length > 0) {
             if (availablePbls.length > 0) {
                 const flip = ["", "flip "];
                 const auf = ["", "U ", "U' ", "U2 "];
                 const adf = ["", "D ", "D' ", "D2 "];
-                let currentIndex = choicei(availablePbls);
+                currentIndex = choicei(availablePbls);
                 currentCase = availablePbls[currentIndex];
                 currentScramble = choice(flip) + choice(auf) + choice(adf) + currentCase.setup + " " + choice(auf) + choice(adf);
                 $("#scramble").html(currentScramble);
-                if (eachOneOnce) {
-                    availablePbls.splice(currentIndex, 1);
-                }
             } else {
                 eachOneOnce = false;
                 availablePbls = selectedPbls;
@@ -115,6 +112,9 @@ loadPbls(pbls => {
         lastCase = currentCase;
         lastScramble = currentScramble;
         printTimes();
+        if (eachOneOnce) {
+            availablePbls.splice(currentIndex, 1);
+        }
         randomCase();
     }
     function startTimer() {
