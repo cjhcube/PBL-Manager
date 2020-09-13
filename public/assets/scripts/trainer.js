@@ -48,7 +48,7 @@ loadPbls(pbls => {
     
     // Update selected cases and random case on select change
     let selectedPbls = getSelectedCases();
-    let availablePbls = selectedPbls;
+    let availablePbls = getSelectedCases();
     let selectedValues = getValuesFromPbls(selectedPbls);
     selectedValues.forEach(value => {
         $("#caseSelect option[value=\"" + value + "\"]").attr("selected", "");
@@ -58,7 +58,7 @@ loadPbls(pbls => {
         selectedValues = $(this).val();
         selectedPbls = getPblsFromValues(selectedValues);
         setSelectedCases(selectedValues);
-        availablePbls = selectedPbls;
+        availablePbls = getSelectedCases();
         updatePbls(pbls);
         randomCase();
     });
@@ -77,7 +77,7 @@ loadPbls(pbls => {
                 $("#scramble").html(currentScramble);
             } else {
                 eachOneOnce = false;
-                availablePbls = selectedPbls;
+                availablePbls = getSelectedCases();
             }
         } else {
             $("#scramble").html("Please select some cases first.");
@@ -114,7 +114,6 @@ loadPbls(pbls => {
         printTimes();
         if (eachOneOnce) {
             availablePbls.splice(currentIndex, 1);
-            selectedPbls = getSelectedCases();
         }
         randomCase();
     }
@@ -165,7 +164,7 @@ loadPbls(pbls => {
     function deleteAll() {
         if (confirm("Are you sure you want to delete all your times?")) {
             times = [];
-            availablePbls = selectedPbls;
+            availablePbls = getSelectedCases();
             printTimes();
         }
     }
