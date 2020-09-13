@@ -85,6 +85,10 @@ loadPbls(pbls => {
         } else {
             $("#scramble").html("Please select some cases first.");
         }
+        console.log(eachOneOnce);
+        console.log(currentCase);
+        console.log(selectedPbls);
+        console.log(availablePbls);
     }
     
     // Calculate mean
