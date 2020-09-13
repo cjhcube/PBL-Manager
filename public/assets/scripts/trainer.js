@@ -1,7 +1,7 @@
 /* 
 PBL Manager
 An online tool to store and train Square-1 PBL algs.
-v2.0.1
+v2.1.0
 
 Original author: Charlie Harrison.
 
@@ -12,6 +12,9 @@ loadPbls(pbls => {
     // Helper function to get a random item from an array
     function choice(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
+    }
+    function choicei(arr) {
+        return Math.floor(Math.random() * arr.length);
     }
 
     // Display PBL cases in select menu
@@ -41,33 +44,56 @@ loadPbls(pbls => {
         });
     }
     
+    let eachOneOnce;
+    
+    function updateEOO() {
+        eachOneOnce = $("#eachOneOnce").get(0).checked;
+    }
+    updateEOO();
+    $("#eachOneOnce").click(updateEOO);
+    
     // Update selected cases and random case on select change
     let selectedPbls = getSelectedCases();
+    let availablePbls = getSelectedCases();
     let selectedValues = getValuesFromPbls(selectedPbls);
     selectedValues.forEach(value => {
         $("#caseSelect option[value=\"" + value + "\"]").attr("selected", "");
     });
-    $("#caseSelect").change(function() {
+    $("#caseSelect").selectpicker();
+    $("#caseSelect").on("changed.bs.select", function(e, i, s, p) {
         selectedValues = $(this).val();
         selectedPbls = getPblsFromValues(selectedValues);
         setSelectedCases(selectedValues);
+        availablePbls = getSelectedCases();
+        updateEOO();
         updatePbls(pbls);
         randomCase();
     });
     
     // Random case/scramble
-    let currentCase, currentScramble, lastCase, lastScramble;
+    let currentIndex, currentCase, currentScramble, lastCase, lastScramble;
     function randomCase() {
         if (selectedPbls.length > 0) {
-            const flip = ["", "flip "];
-            const auf = ["", "U ", "U' ", "U2 "];
-            const adf = ["", "D ", "D' ", "D2 "];
-            currentCase = choice(selectedPbls);
-            currentScramble = choice(flip) + choice(auf) + choice(adf) + currentCase.setup + " " + choice(auf) + choice(adf);
-            $("#scramble").html(currentScramble);
+            if (availablePbls.length > 0) {
+                const flip = ["", "flip "];
+                const auf = ["", "U ", "U' ", "U2 "];
+                const adf = ["", "D ", "D' ", "D2 "];
+                currentIndex = choicei(availablePbls);
+                currentCase = availablePbls[currentIndex];
+                currentScramble = choice(flip) + choice(auf) + choice(adf) + currentCase.setup + " " + choice(auf) + choice(adf);
+                $("#scramble").html(currentScramble);
+            } else {
+                eachOneOnce = false;
+                availablePbls = getSelectedCases();
+            }
         } else {
             $("#scramble").html("Please select some cases first.");
         }
+        console.log(eachOneOnce);
+        console.log(currentCase);
+        console.log(selectedValues);
+        console.log(selectedPbls);
+        console.log(availablePbls);
     }
     
     // Calculate mean
@@ -93,6 +119,9 @@ loadPbls(pbls => {
         lastCase = currentCase;
         lastScramble = currentScramble;
         printTimes();
+        if (eachOneOnce) {
+            availablePbls.splice(currentIndex, 1);
+        }
         randomCase();
     }
     function startTimer() {
@@ -142,6 +171,9 @@ loadPbls(pbls => {
     function deleteAll() {
         if (confirm("Are you sure you want to delete all your times?")) {
             times = [];
+            availablePbls = getSelectedCases();
+            updateEOO();
+            randomCase();
             printTimes();
         }
     }
