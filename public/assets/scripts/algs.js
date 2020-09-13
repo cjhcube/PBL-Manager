@@ -1,7 +1,7 @@
 /* 
 PBL Manager
 An online tool to store and train Square-1 PBL algs.
-v2.0.1
+v2.1.0
 
 Original author: Charlie Harrison.
 
