@@ -95,6 +95,8 @@ loadPbls(pbls => {
             function addAlg() {
                 pbls[newCase].algs.push({alg: alg, angle: angle});
                 updatePbls(pbls);
+                $("#addAlg").val("");
+                $("#addAngle").val("");
                 loadSideNav();
                 loadAlgList();
             }
