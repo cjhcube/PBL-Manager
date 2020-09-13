@@ -44,7 +44,13 @@ loadPbls(pbls => {
         });
     }
     
-    let eachOneOnce = true;
+    let eachOneOnce;
+    
+    function updateEOO() {
+        eachOneOnce = $("#eachOneOnce").get(0).checked;
+    }
+    updateEOO();
+    $("#eachOneOnce").click(updateEOO);
     
     // Update selected cases and random case on select change
     let selectedPbls = getSelectedCases();
@@ -59,6 +65,7 @@ loadPbls(pbls => {
         selectedPbls = getPblsFromValues(selectedValues);
         setSelectedCases(selectedValues);
         availablePbls = getSelectedCases();
+        updateEOO();
         updatePbls(pbls);
         randomCase();
     });
@@ -165,6 +172,7 @@ loadPbls(pbls => {
         if (confirm("Are you sure you want to delete all your times?")) {
             times = [];
             availablePbls = getSelectedCases();
+            updateEOO();
             printTimes();
         }
     }
