@@ -76,68 +76,38 @@ loadPbls(pbls => {
     loadSideNav();
     loadAlgList();
     
-    // Load add modal
-    let addModal = `<div class="modal fade" id="addModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">New Alg</h5>
-                </div>
-                <div class="modal-body">
-                    <div id="addModalAlerts"></div>
-                    <div class="form-group">
-                        <label class="d-block">Case (non-parity only):</label>
-                        <select id="addModalTop" class="form-control d-inline w-auto"></select>
-                        /
-                        <select id="addModalBottom" class="form-control d-inline w-auto"></select>
-                    </div>
-                    <div class="form-group">
-                        <label for="addModalAlg">Alg (any notation):</label>
-                        <input type="text" class="form-control" id="addModalAlg">
-                    </div>
-                    <div class="form-group">
-                        <label for="addModalAngle">Angle (optional, any notation):</label>
-                        <input type="text" class="form-control" id="addModalAngle">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button id="addModalAdd" class="btn btn-primary">Add</button>
-                </div>
-            </div>
-        </div>
-    </div>`;
+    // Add alg
+    topsUnique.forEach(v => {
+        let option = `<option name="${v}">${v}</option>
+        `;
+        $("#addTop").append(option);
+        $("#addBottom").append(option);
+    });
     $("#add").click(function() {
-        $("body").append(addModal);
         topsUnique.forEach(v => {
             let option = `<option name="${v}">${v}</option>
             `;
             $("#addModalTop").append(option);
             $("#addModalBottom").append(option);
         });
-        $("#addModal").modal();
-        $("#addModalAdd").click(function(e) {
-            $("#addModalAlerts").empty();
-            let top = $("#addModalTop").val();
-            let bottom = $("#addModalBottom").val();
-            let alg = $("#addModalAlg").val();
-            let angle = $("#addModalAngle").val();
+        $("#add").click(function(e) {
+            $("#addAlerts").empty();
+            let top = $("#addTop").val();
+            let bottom = $("#addBottom").val();
+            let alg = $("#addAlg").val();
+            let angle = $("#addAngle").val();
             let newCase = pbls.findIndex(pbl => (pbl.top == top) && (pbl.bottom == bottom));
             function addAlg() {
                 pbls[newCase].algs.push({alg: alg, angle: angle});
                 updatePbls(pbls);
                 loadSideNav();
                 loadAlgList();
-                $("#addModal").modal("hide");
             }
             if (pbls[newCase] === undefined) {
-                $("#addModalAlerts").append(`<div class="alert alert-danger">Please enter a valid case.</div>`);
+                $("#addAlerts").append(`<div class="alert alert-danger">Please enter a valid case.</div>`);
             } else if (alg == "") {
-                $("#addModalAlerts").append(`<div class="alert alert-danger">Please enter an alg.</div>`);
+                $("#addAlerts").append(`<div class="alert alert-danger">Please enter an alg.</div>`);
             } else {addAlg();}
-        });
-        $("#addModal").on("hidden.bs.modal", function() {
-            $(this).remove();
         });
     });
     
