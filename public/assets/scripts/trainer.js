@@ -87,6 +87,7 @@ loadPbls(pbls => {
         }
         console.log(eachOneOnce);
         console.log(currentCase);
+        console.log(selectedValues);
         console.log(selectedPbls);
         console.log(availablePbls);
     }
